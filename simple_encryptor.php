@@ -12,6 +12,11 @@ class SimpleEncryptor extends \PMVC\PlugIn
         if (!isset($this['method'])) {
             $this['method'] = 'AES-256-ECB';
         }
+        if (!isset($this['key'])) {
+            $this['key'] =
+               \PMVC\plug('get')->
+               get('passwordPrivateKey');
+        }
     }
 
     /**
