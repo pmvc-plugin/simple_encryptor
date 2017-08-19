@@ -18,18 +18,21 @@ class Simple_encryptorTest extends PHPUnit_Framework_TestCase
     function testEncode()
     {
         $test = 'abc';
-        $encode = '5VmH2Bi5XFcqrioDG9wHEg==';
-        $p = \PMVC\plug($this->_plug, ['key'=>'key']);
+        $encode = '5HLL|ptckpGYKVLJhd8jH0xJjnw==';
+        $p = \PMVC\plug($this->_plug, [
+            'key'=>'key',
+            'iv'=>base64_decode('ptckpGYKVLJhd8jH0xJjnw==')
+        ]);
         $result = $p->encode($test);
-        $this->assertEquals($result, $encode);
+        $this->assertEquals( $encode, $result);
     }
 
     function testDecode()
     {
         $test = 'abc';
-        $encode = '5VmH2Bi5XFcqrioDG9wHEg==';
+        $encode = '5HLL|ptckpGYKVLJhd8jH0xJjnw==';
         $p = \PMVC\plug($this->_plug, ['key'=>'key']);
         $result = $p->decode($encode);
-        $this->assertEquals($result, $test);
+        $this->assertEquals($test, $result);
     }
 }
