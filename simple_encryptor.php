@@ -16,7 +16,7 @@ class SimpleEncryptor extends \PMVC\PlugIn
         if (!isset($this['key'])) {
             $this['key'] =
                \PMVC\plug('get')->
-               get('passwordPrivateKey');
+               get($this['passphraseKey']);
         }
     }
 
