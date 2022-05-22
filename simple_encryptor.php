@@ -1,6 +1,7 @@
 <?php
 
 namespace PMVC\PlugIn\simple_encryptor;
+use UnexpectedValueException;
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\SimpleEncryptor';
 
@@ -23,8 +24,10 @@ class SimpleEncryptor extends \PMVC\PlugIn
                 : 'passphraseKey';
             $this['key'] = \PMVC\plug('get')->get($passphraseKey);
         }
-        if (empty($this['key'])) {
-            return !trigger_error('[SimpleEncryptor] Passphrase is not setted.');
+        if (is_null($this['key'])) {
+            throw new UnexpectedValueException(
+                '[SimpleEncryptor] Passphrase is not setted.'
+            );
         }
         return $this['key'];
     }
