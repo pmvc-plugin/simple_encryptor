@@ -1,19 +1,22 @@
 {
-    "name": "pmvc-plugin/simple_encryptor",
-    "description": "Encryptor",
-    "type": "library",
-    "homepage": "https://github.com/pmvc/pmvc",
-    "keywords": ["encryptor", "pmvc", "plug-in"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Hill",
-            "email": "hill@kimo.com"
-        }
-    ],
-    "require": {
-        "pmvc/pmvc": "*",
-        "pmvc-plugin/get": "*"
-    },
-    "minimum-stability": "dev"
+  "name": "pmvc-plugin/simple_encryptor",
+  "description": "Encryptor",
+  "type": "library",
+  "homepage": "https://github.com/pmvc/pmvc",
+  "keywords": ["encryptor", "pmvc", "plug-in"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Hill",
+      "email": "hill@kimo.com"
+    }
+  ],
+  "require": {
+    "pmvc/pmvc": "*",
+    "pmvc-plugin/get": "*"
+  },
+  "require-dev": {
+    "pmvc-plugin/unit": "*"
+  },
+  "minimum-stability": "dev"
 }
