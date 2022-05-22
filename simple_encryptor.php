@@ -2,7 +2,7 @@
 
 namespace PMVC\PlugIn\simple_encryptor;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\SimpleEncryptor';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\SimpleEncryptor';
 
 class SimpleEncryptor extends \PMVC\PlugIn
 {
@@ -13,14 +13,23 @@ class SimpleEncryptor extends \PMVC\PlugIn
         if (!isset($this['method'])) {
             $this['method'] = 'aes-256-cfb';
         }
-        if (!isset($this['key'])) {
-            $this['key'] =
-               \PMVC\plug('get')->
-               get($this['passphraseKey'] || "passphraseKey");
-        }
     }
 
-    public function isCipher($method)
+    private function _getPassphrase()
+    {
+        if (!isset($this['key'])) {
+            $passphraseKey = isset($this['passphraseKey'])
+                ? $this['passphraseKey']
+                : 'passphraseKey';
+            $this['key'] = \PMVC\plug('get')->get($passphraseKey);
+        }
+        if (empty($this['key'])) {
+            return !trigger_error('[SimpleEncryptor] Passphrase is not setted.');
+        }
+        return $this['key'];
+    }
+
+    private function _isCipher($method)
     {
         if (empty($this->_methods)) {
             $this->_methods = array_flip(openssl_get_cipher_methods());
@@ -33,11 +42,9 @@ class SimpleEncryptor extends \PMVC\PlugIn
         }
     }
 
-    public function genIv($method)
+    private function _genIv($method)
     {
-        $iv = openssl_random_pseudo_bytes(
-            openssl_cipher_iv_length($method)
-        );
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
         return $iv;
     }
 
@@ -46,55 +53,42 @@ class SimpleEncryptor extends \PMVC\PlugIn
      */
     public function encode($string)
     {
-        if (!isset($this['key'])) {
-            return !trigger_error('Key is not setted.');
-        }
-        if ($this->isCipher($this['method'])) {
+        $passphrase = $this->_getPassphrase();
+        if ($this->_isCipher($this['method'])) {
             if (empty($this['iv'])) {
-                $this['iv'] = $this->genIv($this['method']);
+                $this['iv'] = $this->_genIv($this['method']);
             }
-            return 
-                openssl_encrypt(
-                    $string,
-                    $this['method'],
-                    $this['key'],
-                    null,
-                    $this['iv'] 
-                ).
-                '|'.
-                base64_encode($this['iv']);
-        } else {
             return openssl_encrypt(
                 $string,
                 $this['method'],
-                $this['key']
-            );
+                $passphrase,
+                null,
+                $this['iv']
+            ) .
+                '|' .
+                base64_encode($this['iv']);
+        } else {
+            return openssl_encrypt($string, $this['method'], $passphrase);
         }
     }
-    
+
     /**
      * @see http://micmap.org/php-by-example/en/function/openssl_decrypt
      */
     public function decode($string)
     {
-        if (!isset($this['key'])) {
-            return !trigger_error('Key is not setted.');
-        }
+        $passphrase = $this->_getPassphrase();
         $data = explode('|', $string);
         if (isset($data[1])) {
             return openssl_decrypt(
                 $data[0],
                 $this['method'],
-                $this['key'],
+                $passphrase,
                 null,
                 base64_decode($data[1])
             );
         } else {
-            return openssl_decrypt(
-                $data[0],
-                $this['method'],
-                $this['key']
-            );
+            return openssl_decrypt($data[0], $this['method'], $passphrase);
         }
     }
 }
