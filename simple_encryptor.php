@@ -65,7 +65,7 @@ class SimpleEncryptor extends \PMVC\PlugIn
                 $string,
                 $this['method'],
                 $passphrase,
-                null,
+                0,
                 $this['iv']
             ) .
                 '|' .
@@ -87,7 +87,7 @@ class SimpleEncryptor extends \PMVC\PlugIn
                 $data[0],
                 $this['method'],
                 $passphrase,
-                null,
+                0,
                 base64_decode($data[1])
             );
         } else {

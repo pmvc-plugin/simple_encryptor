@@ -3,7 +3,7 @@ namespace PMVC\PlugIn\simple_encryptor;
 
 use PMVC\TestCase;
 
-class Simple_encryptorTest extends TestCase
+class SimpleEncryptorTest extends TestCase
 {
     private $_plug = 'simple_encryptor';
 
