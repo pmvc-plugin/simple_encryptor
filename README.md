@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/pmvc-plugin/simple_encryptor/v/stable)](https://packagist.org/packages/pmvc-plugin/simple_encryptor) 
 [![Latest Unstable Version](https://poser.pugx.org/pmvc-plugin/simple_encryptor/v/unstable)](https://packagist.org/packages/pmvc-plugin/simple_encryptor) 
-[![CircleCI](https://circleci.com/gh/pmvc-plugin/simple_encryptor/tree/master.svg?style=svg)](https://circleci.com/gh/pmvc-plugin/simple_encryptor/tree/master)
+[![CircleCI](https://circleci.com/gh/pmvc-plugin/simple_encryptor/tree/main.svg?style=svg)](https://circleci.com/gh/pmvc-plugin/simple_encryptor/tree/main)
 [![License](https://poser.pugx.org/pmvc-plugin/simple_encryptor/license)](https://packagist.org/packages/pmvc-plugin/simple_encryptor)
 [![Total Downloads](https://poser.pugx.org/pmvc-plugin/simple_encryptor/downloads)](https://packagist.org/packages/pmvc-plugin/simple_encryptor) 
 
@@ -18,7 +18,7 @@ simple_encryptor
 ```
 {
     "require": {
-        "pmvc-plugin/simple_encryptor": "dev-master"
+        "pmvc-plugin/simple_encryptor": "dev-main"
     }
 }
 ```

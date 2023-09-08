@@ -9,7 +9,7 @@ jobs:
         type: string
         default: "simple_encryptor"
     docker:
-      - image: hillliu/pmvc-phpunit:<< parameters.php-version >>
+      - image: allfunc/pmvc-phpunit:<< parameters.php-version >>
     working_directory: /var/www/<< parameters.plugin-name >>
     steps:
       - checkout
